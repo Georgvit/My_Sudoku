@@ -88,10 +88,11 @@ public class GameController implements Action {
     }
 
     public  static void liteMenu(){
-        if(GameSolution.getmBoard().length != 0){
-            JFrame jFrame = new JFrame();
+        JFrame jFrame = new JFrame();
+        if(gs.decision(f)){
             JOptionPane.showMessageDialog(jFrame, "Решение существует");
-        }
+        } else
+            JOptionPane.showMessageDialog(jFrame, "Решение не существует");
 
     }
 }
