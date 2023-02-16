@@ -27,7 +27,8 @@ public class GameController implements Action {
     public static void consolePribt() {
         System.out.print("Начальная сетка:\n");
         s.print(f);
-        if (gs.solve()) {
+        gs.solve();
+        if (gs.decision(GameSolution.getmBoard())) {
             System.out.print("\nРешение:\n");
             s.print(GameSolution.getmBoard());
         } else {
