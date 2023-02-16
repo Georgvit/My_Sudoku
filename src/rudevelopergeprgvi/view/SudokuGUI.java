@@ -231,22 +231,28 @@ public class SudokuGUI extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new Timer(TIMER_DELAY, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    for (int i = 0; i < MAX_ROWS; i++) {
-                        for (int j = 0; j < MAX_ROWS; j++) {
-                            int number = GameSolution.getmBoard()[i][j];
-                            fieldGrid[i][j].setBackground(SOLVED_BG);
-                            fieldGrid[i][j].setText(String.valueOf(number));
-                            GameController.stopMouseListner();
+            int[][] tmp = GameController.consoleMass();
+            if (GameController.truFunction()) {
+                GameController.consolePribt();
+                new Timer(TIMER_DELAY, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for (int i = 0; i < MAX_ROWS; i++) {
+                            for (int j = 0; j < MAX_ROWS; j++) {
+                                int number = tmp[i][j];
+                                fieldGrid[i][j].setBackground(SOLVED_BG);
+                                fieldGrid[i][j].setText(String.valueOf(number));
+                                GameController.stopMouseListner();
+                                ((Timer) e.getSource()).stop();
+                            }
                             ((Timer) e.getSource()).stop();
                         }
-                        ((Timer) e.getSource()).stop();
                     }
-                }
-            }).start();
-            GameController.consolePribt();
+                }).start();
+
+            } else {
+                GameController.liteMenu();
+            }
         }
 
     }

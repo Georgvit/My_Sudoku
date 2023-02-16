@@ -18,24 +18,52 @@ public class GameController implements Action {
     private static int tempJ;
 
     private static boolean mouseListenerIsActive;
-    static int[][] f = SudokuGame.generate();
+    static int[][] realMass = SudokuGame.generate();
 
-    static SudokuGame s = new SudokuGame();
-    static GameSolution gs = new GameSolution(f);
+    static SudokuGame sudokuGame = new SudokuGame();
+    static GameSolution gameSolution = new GameSolution(realMass);
 
 
     public static void consolePribt() {
         System.out.print("Начальная сетка:\n");
-        s.print(f);
-        gs.solve();
-        if (gs.decision(GameSolution.getmBoard())) {
+        sudokuGame.print(realMass);
+        gameSolution.solve();
+        if (gameSolution.decision(GameSolution.getmBoard())) {
             System.out.print("\nРешение:\n");
-            s.print(GameSolution.getmBoard());
+            sudokuGame.print(GameSolution.getmBoard());
         } else {
             System.out.println("\nРешения нет!");
         }
     }
 
+    public static boolean truFunction(){
+       return gameSolution.decision(GameSolution.getmBoard());
+    }
+
+    public static int[][] consoleMass() {
+        gameSolution.solve();
+        if (!truFunction()) {
+            return null;
+//            liteMenu();
+        }
+        return GameSolution.getmBoard();
+    }
+
+    public static SudokuGUI getSudokuGUI() {
+        return sudokuGUI;
+    }
+
+    public static int[][] getRealMass() {
+        return realMass;
+    }
+
+    public static SudokuGame getSudokuGame() {
+        return sudokuGame;
+    }
+
+    public static GameSolution getGameSolution() {
+        return gameSolution;
+    }
 
     public static MouseListener clicedMouseMap(int i, int j) {
         mouseListener = new MouseListener() {
@@ -76,7 +104,7 @@ public class GameController implements Action {
         if (mouseListenerIsActive) {
             SudokuGUI.getFieldGrid()[tempI][tempJ].setText(num);
             SudokuGUI.getFieldGrid()[tempI][tempJ].setBackground(Color.GREEN);
-            f[tempI][tempJ] = Integer.parseInt(num);
+            realMass[tempI][tempJ] = Integer.parseInt(num);
         }
     }
 
@@ -90,7 +118,7 @@ public class GameController implements Action {
 
     public  static void liteMenu(){
         JFrame jFrame = new JFrame();
-        if(gs.decision(f)){
+        if(gameSolution.decision(realMass)){
             JOptionPane.showMessageDialog(jFrame, "Решение существует");
         } else
             JOptionPane.showMessageDialog(jFrame, "Решение не существует");
