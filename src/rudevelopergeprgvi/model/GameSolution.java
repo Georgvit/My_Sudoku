@@ -1,12 +1,13 @@
 package rudevelopergeprgvi.model;
 
 public class GameSolution {
-    private int board[][];
+    private static int[][] board;
     private int boardSize;
     private int boxSize;
     private boolean rowSubset[][];
     private boolean colSubset[][];
     private boolean boxSubset[][];
+
 
     public GameSolution(int board[][]) {
         this.board = board;
@@ -15,10 +16,12 @@ public class GameSolution {
         initSubsets();
     }
 
-    public int[][] getmBoard() {
+//    Получение решенной карты игры
+    public static int[][] getmBoard() {
         return board;
     }
 
+//    Иницилизация решения
     public void initSubsets() {
         rowSubset = new boolean[boardSize][boardSize];
         colSubset = new boolean[boardSize][boardSize];
@@ -57,7 +60,7 @@ public class GameSolution {
         for (int value = 1; value <= boardSize; value++) {
             if (isValid(i, j, value)) {
                 board[i][j] = value;
-                System.out.print(board[i][j] + "  ");
+//                System.out.println(board[i][j] + "  " + value);
                 setSubsetValue(i, j, value, true);
                 if (solve(i + 1, j)) {
                     return true;
