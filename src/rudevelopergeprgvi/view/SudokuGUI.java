@@ -155,8 +155,8 @@ public class SudokuGUI extends JPanel {
             public void actionPerformed(ActionEvent arg0) {
                 new GameController();
                 clearGameMap();
-
                 createGameMap();
+                GameController.consolePribt();
             }
         });
         return file;
@@ -227,7 +227,11 @@ public class SudokuGUI extends JPanel {
         for (int i = 0; i < fieldGrid.length; i++) {
             for (int j = 0; j < fieldGrid.length; j++) {
                 if (fieldGrid[i][j].getText() != null) {
-                    tempsMap[i][j] = Integer.parseInt(fieldGrid[i][j].getText());
+                    try {
+                        tempsMap[i][j] = Integer.parseInt(fieldGrid[i][j].getText());
+                    } catch (NumberFormatException e) {
+                        tempsMap[i][j] = 0;
+                    }
                     System.out.println(tempsMap[i][j]);
                 } else {
                     tempsMap[i][j] = 0;
@@ -272,7 +276,6 @@ public class SudokuGUI extends JPanel {
                 GameController.liteMenu();
             }
         }
-
     }
 
 

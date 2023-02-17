@@ -49,7 +49,6 @@ public class GameController implements Action {
         gameSolution.solve();
         if (!truFunction()) {
             return null;
-//            liteMenu();
         }
         return GameSolution.getmBoard();
     }
@@ -110,6 +109,7 @@ public class GameController implements Action {
             SudokuGUI.getFieldGrid()[tempI][tempJ].setText(num);
             SudokuGUI.getFieldGrid()[tempI][tempJ].setBackground(Color.GREEN);
             GameSolution.setBoard(Integer.parseInt(num), tempI, tempJ);
+            finalGame();
         }
     }
 
@@ -124,14 +124,32 @@ public class GameController implements Action {
     public static void liteMenu() {
         JFrame jFrame = new JFrame();
         if (gameSolution.decision(realMass)) {
-            JOptionPane.showMessageDialog(jFrame, "Решение существует","Решение", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(jFrame, "Решение существует", "Решение", JOptionPane.PLAIN_MESSAGE);
         } else
-            JOptionPane.showMessageDialog(jFrame, "Решение не существует","Решение", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(jFrame, "Решение не существует", "Решение", JOptionPane.PLAIN_MESSAGE);
 
     }
 
     public static void liteMenuAutor() {
         JFrame jFrame = new JFrame();
         JOptionPane.showMessageDialog(jFrame, TextRules.textAutor(), "О программе", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    public static void finalGame() {
+        int[][] tempMass = SudokuGUI.tempMap();
+        int count = 0;
+        if(truFunction()){
+            for (int i = 0; i < tempMass.length; i++) {
+                for (int j = 0; j < tempMass.length; j++) {
+                    if (tempMass[i][j] == 0){
+                        count++;
+                    }
+                }
+            }
+            if (count == 0){
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, TextRules.textResult(), "Результат игры", JOptionPane.PLAIN_MESSAGE);
+            }
+        }
     }
 }
