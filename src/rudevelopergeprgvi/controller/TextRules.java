@@ -38,4 +38,9 @@ public class TextRules {
 
         return textAutor;
     }
+
+    public static String textResult(){
+        String textResult = "Поздравляем!\nВы выиграли!!!";
+        return textResult;
+    }
 }
