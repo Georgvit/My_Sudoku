@@ -105,7 +105,7 @@ public class SudokuGUI extends JPanel {
         wPanel.add(buttonBox2);
         textField.setPreferredSize(new Dimension(250, 500));
         textField.setText(TextRules.textRules());
-        textField.setFont(new Font(TextRules.textRules(),Font.BOLD,16));
+        textField.setFont(new Font(TextRules.textRules(), Font.BOLD, 16));
         textField.setEditable(false);
         ePanel.add(textField);
 
@@ -234,7 +234,6 @@ public class SudokuGUI extends JPanel {
                 }
             }
         }
-
         return tempsMap;
     }
 
