@@ -3,7 +3,6 @@ package rudevelopergeprgvi.controller;
 import rudevelopergeprgvi.model.GameSolution;
 import rudevelopergeprgvi.model.SudokuGame;
 import rudevelopergeprgvi.view.SudokuGUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -14,6 +13,7 @@ public class GameController {
     private static MouseListener mouseListener;
     private static int tempI;
     private static int tempJ;
+    private static JFrame jFrame;
     private static boolean mouseListenerIsActive;
     static int[][] realMass;
     static SudokuGame sudokuGame;
@@ -26,13 +26,13 @@ public class GameController {
     }
 
 
-    public static boolean truFunction() {
+    public static boolean trueFunction() {
         return gameSolution.decision(GameSolution.getmBoard());
     }
 
-    public static int[][] consoleMass() {
+    public static int[][] ArrayOfSolutions() {
         gameSolution.solve();
-        if (!truFunction()) {
+        if (!trueFunction()) {
             return null;
         }
         return GameSolution.getmBoard();
@@ -78,7 +78,7 @@ public class GameController {
             SudokuGUI.getFieldGrid()[tempI][tempJ].setText(num);
             SudokuGUI.getFieldGrid()[tempI][tempJ].setBackground(Color.GREEN);
             GameSolution.setBoard(Integer.parseInt(num), tempI, tempJ);
-            finalGame();
+            finalWindowGame();
         }
     }
 
@@ -90,8 +90,8 @@ public class GameController {
         mouseListenerIsActive = true;
     }
 
-    public static void liteMenu() {
-        JFrame jFrame = new JFrame();
+    public static void liteWindow() {
+        jFrame = new JFrame();
         if (gameSolution.decision(realMass)) {
             JOptionPane.showMessageDialog(jFrame, "Решение существует", "Решение", JOptionPane.PLAIN_MESSAGE);
         } else
@@ -99,15 +99,15 @@ public class GameController {
 
     }
 
-    public static void liteMenuAutor() {
-        JFrame jFrame = new JFrame();
-        JOptionPane.showMessageDialog(jFrame, TextRules.textAutor(), "О программе", JOptionPane.PLAIN_MESSAGE);
+    public static void liteWindowAuthor() {
+        jFrame = new JFrame();
+        JOptionPane.showMessageDialog(jFrame, TextRules.textAuthor(), "О программе", JOptionPane.PLAIN_MESSAGE);
     }
 
-    public static void finalGame() {
+    public static void finalWindowGame() {
         int[][] tempMass = SudokuGUI.tempMap();
         int count = 0;
-        if (truFunction()) {
+        if (trueFunction()) {
             for (int i = 0; i < tempMass.length; i++) {
                 for (int j = 0; j < tempMass.length; j++) {
                     if (tempMass[i][j] == 0) {
@@ -116,7 +116,7 @@ public class GameController {
                 }
             }
             if (count == 0) {
-                JFrame jFrame = new JFrame();
+                jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame, TextRules.textResult(), "Результат игры", JOptionPane.PLAIN_MESSAGE);
             }
         }

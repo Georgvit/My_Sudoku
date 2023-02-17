@@ -2,6 +2,7 @@ package rudevelopergeprgvi.model;
 
 import java.util.Random;
 
+
 public class SudokuGame {
     private static int boardSize = 9;
     private static GameSolution gameSolution;
@@ -14,24 +15,24 @@ public class SudokuGame {
     //    Метод генерации карты игры
     public static int[][] generate() {
         int[][] board = new int[boardSize][boardSize];
-        int k = 1, n = 1;
+        int numberOne = 1, numberTwo = 1;
         for (int i = 0; i < boardSize; i++) {
-            k = n;
+            numberOne = numberTwo;
             for (int j = 0; j < boardSize; j++) {
-                if (k <= boardSize) {
-                    board[i][j] = k;
-                    k++;
+                if (numberOne <= boardSize) {
+                    board[i][j] = numberOne;
+                    numberOne++;
                 } else {
-                    k = 1;
-                    board[i][j] = k;
-                    k++;
+                    numberOne = 1;
+                    board[i][j] = numberOne;
+                    numberOne++;
                 }
             }
-            n = k + 3;
-            if (k == 10)
-                n = 4;
-            if (n > boardSize)
-                n = (n % boardSize) + 1;
+            numberTwo = numberOne + 3;
+            if (numberOne == 10)
+                numberTwo = 4;
+            if (numberTwo > boardSize)
+                numberTwo = (numberTwo % boardSize) + 1;
         }
         setZoro(board);
 
@@ -51,11 +52,11 @@ public class SudokuGame {
         for (int i = 0; i < board.length; i++) {
             int t = new Random().nextInt(0, 9);
             int m = new Random().nextInt(0, 9);
-            int temp = 0;
+            int tempNumber = 0;
             for (int j = 0; j < board.length; j++) {
-                temp = board[t][j];
+                tempNumber = board[t][j];
                 board[t][j] = board[m][j];
-                board[m][j] = temp;
+                board[m][j] = tempNumber;
             }
         }
         return board;
@@ -66,11 +67,11 @@ public class SudokuGame {
         for (int i = 0; i < board.length; i++) {
             int t = new Random().nextInt(0, 9);
             int m = new Random().nextInt(0, 9);
-            int temp = 0;
+            int tempNumber = 0;
             for (int j = 0; j < board.length; j++) {
-                temp = board[j][t];
+                tempNumber = board[j][t];
                 board[j][t] = board[j][m];
-                board[j][m] = temp;
+                board[j][m] = tempNumber;
             }
         }
         return board;

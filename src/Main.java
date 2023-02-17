@@ -1,9 +1,5 @@
-
-
 import rudevelopergeprgvi.controller.GameController;
-
 import javax.swing.*;
-
 import static rudevelopergeprgvi.view.SudokuGUI.createAndShowGui;
 
 public class Main {
@@ -12,8 +8,5 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             createAndShowGui();
         });
-
     }
-
-
 }

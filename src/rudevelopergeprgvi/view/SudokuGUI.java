@@ -70,7 +70,6 @@ public class SudokuGUI extends JPanel {
             }
         }
 
-
         for (int i = 0; i < buttons.length; i++) {
             button = new Button();
             button.setPreferredSize(new Dimension(61, 40));
@@ -92,15 +91,15 @@ public class SudokuGUI extends JPanel {
         buttonTestSolution.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameController.liteMenu();
+                GameController.liteWindow();
             }
         });
         newwPanel.add(buttonTestSolution);
         buttonBox2.add(newwPanel);
         wPanel.add(buttonBox2);
         textField.setPreferredSize(new Dimension(250, 500));
-        textField.setText(TextRules.textRules());
-        textField.setFont(new Font(TextRules.textRules(), Font.BOLD, 16));
+        textField.setText(TextRules.textMessage());
+        textField.setFont(new Font(TextRules.textMessage(), Font.BOLD, 16));
         textField.setEditable(false);
         ePanel.add(textField);
 
@@ -124,7 +123,6 @@ public class SudokuGUI extends JPanel {
 
 
     }
-
 
     private JMenu createFileMenu() {
         // Создание выпадающего меню
@@ -156,7 +154,6 @@ public class SudokuGUI extends JPanel {
         return file;
     }
 
-
     private JMenu createViewMenu() {
         // создадим выпадающее меню
         JMenu viewMenu = new JMenu("Помощь");
@@ -166,7 +163,7 @@ public class SudokuGUI extends JPanel {
         two.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameController.liteMenuAutor();
+                GameController.liteWindowAuthor();
             }
         });
         // организуем переключатели в логическую группу
@@ -191,7 +188,6 @@ public class SudokuGUI extends JPanel {
     public static JTextField[][] getFieldGrid() {
         return fieldGrid;
     }
-
 
     private void createGameMap() {
 
@@ -247,8 +243,8 @@ public class SudokuGUI extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int[][] tmp = GameController.consoleMass();
-            if (GameController.truFunction()) {
+            int[][] tmp = GameController.ArrayOfSolutions();
+            if (GameController.trueFunction()) {
                 new Timer(TIMER_DELAY, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -264,9 +260,8 @@ public class SudokuGUI extends JPanel {
                         }
                     }
                 }).start();
-
             } else {
-                GameController.liteMenu();
+                GameController.liteWindow();
             }
         }
     }
@@ -274,7 +269,6 @@ public class SudokuGUI extends JPanel {
 
     public static void createAndShowGui() {
         SudokuGUI mainPanel = new SudokuGUI();
-
         JFrame frame = new JFrame("СУДОКУ");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(mainPanel);
