@@ -88,6 +88,7 @@ public class GameSolution {
         return boxRow * boxSize + boxCol;
     }
 
+    //    Метод проверки полей на соблюдение правил игры
     public boolean decision(int[][] board) {
         int temp;
         //  Проверка по столбцам

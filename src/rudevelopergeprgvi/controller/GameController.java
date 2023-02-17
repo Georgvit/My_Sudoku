@@ -3,6 +3,7 @@ package rudevelopergeprgvi.controller;
 import rudevelopergeprgvi.model.GameSolution;
 import rudevelopergeprgvi.model.SudokuGame;
 import rudevelopergeprgvi.view.SudokuGUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -25,11 +26,12 @@ public class GameController {
         gameSolution = new GameSolution(realMass);
     }
 
-
+    //    Проверка полей на соблюдение правил игры
     public static boolean trueFunction() {
         return gameSolution.decision(GameSolution.getmBoard());
     }
 
+    //    Массив с решенным полем
     public static int[][] ArrayOfSolutions() {
         gameSolution.solve();
         if (!trueFunction()) {
@@ -38,7 +40,7 @@ public class GameController {
         return GameSolution.getmBoard();
     }
 
-
+    //    Выбор поля для ввода
     public static MouseListener clicedMouseMap(int i, int j) {
         mouseListener = new MouseListener() {
             @Override
@@ -73,6 +75,7 @@ public class GameController {
         return mouseListener;
     }
 
+    //    Ввод данных с цифровой панели приложения
     public static void clicedMouseСhoiceNumber(String num) {
         if (mouseListenerIsActive) {
             SudokuGUI.getFieldGrid()[tempI][tempJ].setText(num);
@@ -82,14 +85,17 @@ public class GameController {
         }
     }
 
+    //    Остановка слушателя
     public static void stopMouseListner() {
         mouseListenerIsActive = false;
     }
 
+    //    Запуск слушателя
     public static void startMouseListner() {
         mouseListenerIsActive = true;
     }
 
+    //    Вывод результата проверки наличия решения
     public static void liteWindow() {
         jFrame = new JFrame();
         if (gameSolution.decision(realMass)) {
@@ -99,11 +105,13 @@ public class GameController {
 
     }
 
+    //  Вывод информации о приложении
     public static void liteWindowAuthor() {
         jFrame = new JFrame();
         JOptionPane.showMessageDialog(jFrame, TextRules.textAuthor(), "О программе", JOptionPane.PLAIN_MESSAGE);
     }
 
+    //    Проверка окончания игры и вывод результата
     public static void finalWindowGame() {
         int[][] tempMass = SudokuGUI.tempMap();
         int count = 0;

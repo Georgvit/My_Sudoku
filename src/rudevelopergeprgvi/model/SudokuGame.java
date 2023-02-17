@@ -4,6 +4,7 @@ import java.util.Random;
 
 
 public class SudokuGame {
+//    Размер поля
     private static int boardSize = 9;
     private static GameSolution gameSolution;
     private static boolean trueSolution;
@@ -87,6 +88,5 @@ public class SudokuGame {
         }
         return board;
     }
-
 
 }

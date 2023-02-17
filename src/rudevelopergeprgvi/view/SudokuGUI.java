@@ -3,6 +3,7 @@ package rudevelopergeprgvi.view;
 import rudevelopergeprgvi.controller.GameController;
 import rudevelopergeprgvi.controller.TextRules;
 import rudevelopergeprgvi.model.GameSolution;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
@@ -126,9 +127,9 @@ public class SudokuGUI extends JPanel {
 
     private JMenu createFileMenu() {
         // Создание выпадающего меню
-        JMenu file = new JMenu("Игра");
-        // Пункт меню "Открыть"
-        JMenuItem open = new JMenuItem("Новая игра");
+        JMenu gameMenu = new JMenu("Игра");
+        // Пункт меню "Новая игра"
+        JMenuItem newGame = new JMenuItem("Новая игра");
         // Пункт меню из команды с выходом из программы
         JMenuItem exit = new JMenuItem("Выход");
 
@@ -138,12 +139,12 @@ public class SudokuGUI extends JPanel {
                 System.exit(0);
             }
         });
-        // Добавим в меню пункта open
-        file.add(open);
-        // Добавление разделителя
-        file.add(exit);
+        // Добавим в меню пункта gameMenu
+        gameMenu.add(newGame);
+        // Добавим в меню пункта exit
+        gameMenu.add(exit);
 
-        open.addActionListener(new ActionListener() {
+        newGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 new GameController();
@@ -151,16 +152,15 @@ public class SudokuGUI extends JPanel {
                 createGameMap();
             }
         });
-        return file;
+        return gameMenu;
     }
 
     private JMenu createViewMenu() {
         // создадим выпадающее меню
         JMenu viewMenu = new JMenu("Помощь");
-        // меню-переключатели
-        JMenuItem one = new JMenuItem(new SolveAction("Показать решение"));
-        JMenuItem two = new JMenuItem("О программе");
-        two.addActionListener(new ActionListener() {
+        JMenuItem viewSol = new JMenuItem(new SolveAction("Показать решение"));
+        JMenuItem about = new JMenuItem("О программе");
+        about.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GameController.liteWindowAuthor();
@@ -168,13 +168,13 @@ public class SudokuGUI extends JPanel {
         });
         // организуем переключатели в логическую группу
         ButtonGroup bg = new ButtonGroup();
-        bg.add(one);
-        bg.add(two);
+        bg.add(viewSol);
+        bg.add(about);
         // добавим все в меню
         // разделитель можно создать и явно
         viewMenu.add(new JSeparator());
-        viewMenu.add(one);
-        viewMenu.add(two);
+        viewMenu.add(viewSol);
+        viewMenu.add(about);
         return viewMenu;
     }
 
@@ -189,9 +189,8 @@ public class SudokuGUI extends JPanel {
         return fieldGrid;
     }
 
+    //    Создаем игровое поле
     private void createGameMap() {
-
-        //Рабочий код
         for (int i = 0; i < MAX_ROWS; i++) {
             for (int j = 0; j < MAX_ROWS; j++) {
                 if (GameSolution.getmBoard()[i][j] != 0) {
@@ -205,6 +204,7 @@ public class SudokuGUI extends JPanel {
         }
     }
 
+    //    Очистка поля
     private void clearGameMap() {
         for (int i = 0; i < MAX_ROWS; i++) {
             for (int j = 0; j < MAX_ROWS; j++) {
@@ -215,6 +215,7 @@ public class SudokuGUI extends JPanel {
         }
     }
 
+    //    Промежуточный массив сосканированный с поля
     public static int[][] tempMap() {
         for (int i = 0; i < fieldGrid.length; i++) {
             for (int j = 0; j < fieldGrid.length; j++) {
@@ -232,14 +233,13 @@ public class SudokuGUI extends JPanel {
         return tempsMap;
     }
 
+    //    Вывод решения
     private class SolveAction extends AbstractAction {
-
         public SolveAction(String name) {
             super(name);
             int mnemonic = (int) name.charAt(0);
             putValue(MNEMONIC_KEY, mnemonic);
         }
-
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -266,7 +266,7 @@ public class SudokuGUI extends JPanel {
         }
     }
 
-
+    //  Создаем форму
     public static void createAndShowGui() {
         SudokuGUI mainPanel = new SudokuGUI();
         JFrame frame = new JFrame("СУДОКУ");
