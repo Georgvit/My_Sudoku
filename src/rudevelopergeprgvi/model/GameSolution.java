@@ -64,7 +64,6 @@ public class GameSolution {
         for (int value = 1; value <= boardSize; value++) {
             if (isValid(i, j, value)) {
                 board[i][j] = value;
-//                System.out.println(board[i][j] + "  " + value);
                 setSubsetValue(i, j, value, true);
                 if (solve(i + 1, j)) {
                     return true;
@@ -72,7 +71,6 @@ public class GameSolution {
                 setSubsetValue(i, j, value, false);
             }
         }
-
         board[i][j] = 0;
         return false;
     }
@@ -95,11 +93,9 @@ public class GameSolution {
         //  Проверка по столбцам
         int count = 0;
         for (int i = 0; i < board.length; i++) {
-//            System.out.println("i " + i);
             for (int j = 0; j < board.length; j++) {
                 temp = board[i][j];
                 if (temp != 0) {
-//                    System.out.println("temp " + temp);
                     for (int k = 0; k < board.length; k++) {
                         if (temp == board[i][k]) {
                             count++;
@@ -116,11 +112,9 @@ public class GameSolution {
         //  Проверка по строкам
         count = 0;
         for (int i = 0; i < board.length; i++) {
-//            System.out.println("i " + i);
             for (int j = 0; j < board.length; j++) {
                 temp = board[j][i];
                 if (temp != 0) {
-//                    System.out.println("temp " + temp);
                     for (int k = 0; k < board.length; k++) {
                         if (temp == board[k][i]) {
                             count++;
@@ -137,7 +131,6 @@ public class GameSolution {
         //  Проверка по ячейка 3х3
         count = 0;
         for (int i = 0; i < board.length; i += 3) {
-
             for (int j = 0; j < board.length; j += 3) {
                 for (int t = i; t < boxSize + i; t++) {
                     for (int k = j; k < boxSize + j; k++) {
@@ -147,11 +140,9 @@ public class GameSolution {
                                 if (temp != 0) {
                                     if (temp == board[e][y]) {
                                         count++;
-//                                        System.out.println(count);
                                     }
                                 }
                                 if (count >= 2) {
-                                    System.out.println("count" + count);
                                     return false;
                                 }
                             }

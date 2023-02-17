@@ -71,7 +71,6 @@ public class SudokuGame {
                 temp = board[j][t];
                 board[j][t] = board[j][m];
                 board[j][m] = temp;
-
             }
         }
         return board;
@@ -88,23 +87,5 @@ public class SudokuGame {
         return board;
     }
 
-    //    Вывод карты игры в консоль
-    public void print(int[][] board) {
-        int num = (int) Math.sqrt(board.length);
-        for (int i = 0; i < board.length; i++) {
-            if (i % num == 0) {
-                System.out.println(" -----------------------");
-            }
-            for (int j = 0; j < board.length; j++) {
-                if (j % num == 0) {
-                    System.out.print("| ");
-                }
-                System.out.print(board[i][j] != 0 ? ((Object) (Integer.valueOf(board[i][j]))) : "-");
-                System.out.print(' ');
-            }
-            System.out.println("|");
-        }
-        System.out.println(" -----------------------");
-    }
 
 }

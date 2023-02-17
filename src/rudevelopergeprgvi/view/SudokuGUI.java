@@ -3,13 +3,12 @@ package rudevelopergeprgvi.view;
 import rudevelopergeprgvi.controller.GameController;
 import rudevelopergeprgvi.controller.TextRules;
 import rudevelopergeprgvi.model.GameSolution;
-
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
+
 
 public class SudokuGUI extends JPanel {
     //  Размер сетки
@@ -28,11 +27,8 @@ public class SudokuGUI extends JPanel {
     private static final Button[] buttons = new Button[MAX_ROWS];
     private static Button button;
     private static JButton buttonTestSolution;
-    private static GameSolution gameSolution;
-
 
     private static int[][] tempsMap = new int[MAX_ROWS][MAX_ROWS];
-
 
     //  Время задержки
     public static final int TIMER_DELAY = 300;
@@ -100,7 +96,6 @@ public class SudokuGUI extends JPanel {
             }
         });
         newwPanel.add(buttonTestSolution);
-//        newwPanel.setComponentOrientation(ComponentOrientation.UNKNOWN);
         buttonBox2.add(newwPanel);
         wPanel.add(buttonBox2);
         textField.setPreferredSize(new Dimension(250, 500));
@@ -156,7 +151,6 @@ public class SudokuGUI extends JPanel {
                 new GameController();
                 clearGameMap();
                 createGameMap();
-                GameController.consolePribt();
             }
         });
         return file;
@@ -200,6 +194,8 @@ public class SudokuGUI extends JPanel {
 
 
     private void createGameMap() {
+
+        //Рабочий код
         for (int i = 0; i < MAX_ROWS; i++) {
             for (int j = 0; j < MAX_ROWS; j++) {
                 if (GameSolution.getmBoard()[i][j] != 0) {
@@ -232,7 +228,6 @@ public class SudokuGUI extends JPanel {
                     } catch (NumberFormatException e) {
                         tempsMap[i][j] = 0;
                     }
-                    System.out.println(tempsMap[i][j]);
                 } else {
                     tempsMap[i][j] = 0;
                 }
@@ -254,7 +249,6 @@ public class SudokuGUI extends JPanel {
         public void actionPerformed(ActionEvent e) {
             int[][] tmp = GameController.consoleMass();
             if (GameController.truFunction()) {
-                GameController.consolePribt();
                 new Timer(TIMER_DELAY, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {

@@ -10,16 +10,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
-public class GameController implements Action {
+public class GameController {
     private static MouseListener mouseListener;
-
-    private static SudokuGUI sudokuGUI;
     private static int tempI;
     private static int tempJ;
-
     private static boolean mouseListenerIsActive;
     static int[][] realMass;
-
     static SudokuGame sudokuGame;
     static GameSolution gameSolution;
 
@@ -29,17 +25,6 @@ public class GameController implements Action {
         gameSolution = new GameSolution(realMass);
     }
 
-    public static void consolePribt() {
-        System.out.print("Начальная сетка:\n");
-        sudokuGame.print(realMass);
-        gameSolution.solve();
-        if (gameSolution.decision(GameSolution.getmBoard())) {
-            System.out.print("\nРешение:\n");
-            sudokuGame.print(GameSolution.getmBoard());
-        } else {
-            System.out.println("\nРешения нет!");
-        }
-    }
 
     public static boolean truFunction() {
         return gameSolution.decision(GameSolution.getmBoard());
@@ -53,21 +38,6 @@ public class GameController implements Action {
         return GameSolution.getmBoard();
     }
 
-    public static SudokuGUI getSudokuGUI() {
-        return sudokuGUI;
-    }
-
-    public static int[][] getRealMass() {
-        return realMass;
-    }
-
-    public static SudokuGame getSudokuGame() {
-        return sudokuGame;
-    }
-
-    public static GameSolution getGameSolution() {
-        return gameSolution;
-    }
 
     public static MouseListener clicedMouseMap(int i, int j) {
         mouseListener = new MouseListener() {
@@ -100,7 +70,6 @@ public class GameController implements Action {
 
             }
         };
-
         return mouseListener;
     }
 
@@ -138,15 +107,15 @@ public class GameController implements Action {
     public static void finalGame() {
         int[][] tempMass = SudokuGUI.tempMap();
         int count = 0;
-        if(truFunction()){
+        if (truFunction()) {
             for (int i = 0; i < tempMass.length; i++) {
                 for (int j = 0; j < tempMass.length; j++) {
-                    if (tempMass[i][j] == 0){
+                    if (tempMass[i][j] == 0) {
                         count++;
                     }
                 }
             }
-            if (count == 0){
+            if (count == 0) {
                 JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame, TextRules.textResult(), "Результат игры", JOptionPane.PLAIN_MESSAGE);
             }
