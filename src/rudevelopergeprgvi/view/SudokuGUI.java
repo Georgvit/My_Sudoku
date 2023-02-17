@@ -1,14 +1,15 @@
 package rudevelopergeprgvi.view;
 
 import rudevelopergeprgvi.controller.GameController;
+import rudevelopergeprgvi.controller.TextRules;
 import rudevelopergeprgvi.model.GameSolution;
-import rudevelopergeprgvi.model.SudokuGame;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
 public class SudokuGUI extends JPanel {
     //  Размер сетки
@@ -29,6 +30,7 @@ public class SudokuGUI extends JPanel {
     private static JButton buttonTestSolution;
     private static GameSolution gameSolution;
 
+
     private static int[][] tempsMap = new int[MAX_ROWS][MAX_ROWS];
 
 
@@ -44,7 +46,7 @@ public class SudokuGUI extends JPanel {
         JPanel wPanel = new JPanel();
         JPanel newwPanel = new JPanel();
         JPanel ePanel = new JPanel();
-        JTextField textField = new JTextField();
+        JTextArea textField = new JTextArea();
         Box buttonBox = Box.createHorizontalBox();
         Box buttonBox2 = Box.createHorizontalBox();
         buttonBox.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
@@ -63,6 +65,7 @@ public class SudokuGUI extends JPanel {
         for (int row = 0; row < fieldGrid.length; row++) {
             for (int col = 0; col < fieldGrid[row].length; col++) {
                 fieldGrid[row][col] = createField(row, col);
+                fieldGrid[row][col].setBackground(Color.WHITE);
                 int i = row / 3;
                 int j = col / 3;
                 panels[i][j].add(fieldGrid[row][col]);
@@ -101,7 +104,9 @@ public class SudokuGUI extends JPanel {
         buttonBox2.add(newwPanel);
         wPanel.add(buttonBox2);
         textField.setPreferredSize(new Dimension(250, 500));
-
+        textField.setText(TextRules.textRules());
+        textField.setFont(new Font(TextRules.textRules(),Font.BOLD,16));
+        textField.setEditable(false);
         ePanel.add(textField);
 
         sPanel.add(buttonBox).setBackground(Color.BLACK);
@@ -129,11 +134,8 @@ public class SudokuGUI extends JPanel {
     private JMenu createFileMenu() {
         // Создание выпадающего меню
         JMenu file = new JMenu("Игра");
-        // Пункт меню "Открыть" с изображением
-        JMenuItem open = new JMenuItem("Открыть",
-                new ImageIcon("images/open.png"));
-        JMenuItem save = new JMenuItem("Сохранить",
-                new ImageIcon("images/open.png"));
+        // Пункт меню "Открыть"
+        JMenuItem open = new JMenuItem("Новая игра");
         // Пункт меню из команды с выходом из программы
         JMenuItem exit = new JMenuItem("Выход");
 
@@ -145,16 +147,16 @@ public class SudokuGUI extends JPanel {
         });
         // Добавим в меню пункта open
         file.add(open);
-        file.addSeparator();
-        file.add(save);
         // Добавление разделителя
-        file.addSeparator();
         file.add(exit);
 
         open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                System.out.println("ActionListener.actionPerformed : open");
+                new GameController();
+                clearGameMap();
+
+                createGameMap();
             }
         });
         return file;
@@ -163,10 +165,16 @@ public class SudokuGUI extends JPanel {
 
     private JMenu createViewMenu() {
         // создадим выпадающее меню
-        JMenu viewMenu = new JMenu("Меню");
+        JMenu viewMenu = new JMenu("Помощь");
         // меню-переключатели
         JMenuItem one = new JMenuItem(new SolveAction("Показать решение"));
         JMenuItem two = new JMenuItem("О программе");
+        two.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameController.liteMenuAutor();
+            }
+        });
         // организуем переключатели в логическую группу
         ButtonGroup bg = new ButtonGroup();
         bg.add(one);
@@ -201,6 +209,16 @@ public class SudokuGUI extends JPanel {
                     GameController.startMouseListner();
                     fieldGrid[i][j].addMouseListener(GameController.clicedMouseMap(i, j));
                 }
+            }
+        }
+    }
+
+    private void clearGameMap() {
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_ROWS; j++) {
+                fieldGrid[i][j].setText(null);
+                fieldGrid[i][j].setBackground(Color.WHITE);
+
             }
         }
     }
@@ -266,6 +284,7 @@ public class SudokuGUI extends JPanel {
         frame.getContentPane().add(mainPanel);
         frame.pack();
         frame.setLocationByPlatform(true);
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 

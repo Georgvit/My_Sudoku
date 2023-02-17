@@ -18,11 +18,16 @@ public class GameController implements Action {
     private static int tempJ;
 
     private static boolean mouseListenerIsActive;
-    static int[][] realMass = SudokuGame.generate();
+    static int[][] realMass;
 
-    static SudokuGame sudokuGame = new SudokuGame();
-    static GameSolution gameSolution = new GameSolution(realMass);
+    static SudokuGame sudokuGame;
+    static GameSolution gameSolution;
 
+    public GameController() {
+        realMass = SudokuGame.generate();
+        sudokuGame = new SudokuGame();
+        gameSolution = new GameSolution(realMass);
+    }
 
     public static void consolePribt() {
         System.out.print("Начальная сетка:\n");
@@ -36,8 +41,8 @@ public class GameController implements Action {
         }
     }
 
-    public static boolean truFunction(){
-       return gameSolution.decision(GameSolution.getmBoard());
+    public static boolean truFunction() {
+        return gameSolution.decision(GameSolution.getmBoard());
     }
 
     public static int[][] consoleMass() {
@@ -104,7 +109,7 @@ public class GameController implements Action {
         if (mouseListenerIsActive) {
             SudokuGUI.getFieldGrid()[tempI][tempJ].setText(num);
             SudokuGUI.getFieldGrid()[tempI][tempJ].setBackground(Color.GREEN);
-            realMass[tempI][tempJ] = Integer.parseInt(num);
+            GameSolution.setBoard(Integer.parseInt(num), tempI, tempJ);
         }
     }
 
@@ -116,12 +121,17 @@ public class GameController implements Action {
         mouseListenerIsActive = true;
     }
 
-    public  static void liteMenu(){
+    public static void liteMenu() {
         JFrame jFrame = new JFrame();
-        if(gameSolution.decision(realMass)){
-            JOptionPane.showMessageDialog(jFrame, "Решение существует");
+        if (gameSolution.decision(realMass)) {
+            JOptionPane.showMessageDialog(jFrame, "Решение существует","Решение", JOptionPane.PLAIN_MESSAGE);
         } else
-            JOptionPane.showMessageDialog(jFrame, "Решение не существует");
+            JOptionPane.showMessageDialog(jFrame, "Решение не существует","Решение", JOptionPane.PLAIN_MESSAGE);
 
+    }
+
+    public static void liteMenuAutor() {
+        JFrame jFrame = new JFrame();
+        JOptionPane.showMessageDialog(jFrame, TextRules.textAutor(), "О программе", JOptionPane.PLAIN_MESSAGE);
     }
 }

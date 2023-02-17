@@ -16,6 +16,10 @@ public class GameSolution {
         initSubsets();
     }
 
+    public static void setBoard(int board, int i, int j) {
+        GameSolution.board[i][j] = board;
+    }
+
     //    Получение решенной карты игры
     public static int[][] getmBoard() {
         return board;
